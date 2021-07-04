@@ -42,6 +42,19 @@ namespace AddressBookProgram
                 }
             }
         }
+        //Delete the particular object
+        public void DeleteContact(string name)
+        {
+            foreach (ContactDetails contact in this.contactList)
+            {
+                if (contact.firstName.Equals(name))
+                {
+                    this.contactList.Remove(contact);
+                    break;
+                }
+            }
+        }
+
 
     }
 }

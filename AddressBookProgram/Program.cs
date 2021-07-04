@@ -9,6 +9,7 @@ namespace AddressBookProgram
         /// UC1 - Gets the contact detail
         /// UC2- Get and stores multiple contacts
         /// UC3- Edit the contacts
+        /// UC4-Deleting the particular contact detail
         /// </summary>
         /// <param name="args">The arguments.</param>
         static void Main(string[] args)

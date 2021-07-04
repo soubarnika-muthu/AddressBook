@@ -13,6 +13,7 @@ namespace AddressBookProgram
             //creating the object for the class address book 
             AddressBookCompute addressBook = new AddressBookCompute();
             bool CONTINUE = true;
+            string name;
 
             //the loop continues until the user exit the site
             while (CONTINUE)
@@ -21,6 +22,7 @@ namespace AddressBookProgram
                 Console.WriteLine("1.Add contacts");
                 Console.WriteLine("2.Display");
                 Console.WriteLine("3.Edit Details");
+                Console.WriteLine("4.Delete the contact");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -37,12 +39,19 @@ namespace AddressBookProgram
                     case 3:
                         //gets input from the user such as name and number that has to be changed
                         Console.WriteLine("Enter the first name of person to edit number:");
-                        string name = Console.ReadLine();
+                        name = Console.ReadLine();
                         Console.Write("Enter the new number:");
                         long number = Convert.ToInt64(Console.ReadLine());
 
                         //calling edit contact method
                         addressBook.EditContact(name, number);
+                        break;
+
+                    case 4:
+                        //Deleting the user contact with first name
+                        Console.WriteLine("Enter the name to delete contact:");
+                        name = Console.ReadLine();
+                        addressBook.DeleteContact(name);
                         break;
 
                     case 0:
@@ -52,10 +61,7 @@ namespace AddressBookProgram
                     default:
                         break;
                 }
-
-
             }
-
         }
 
         //gets the user detail from the user
@@ -77,7 +83,5 @@ namespace AddressBookProgram
             long phoneNumber = Convert.ToInt64(Console.ReadLine());
             addressBookCompute.AddContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber);
         }
-
-
     }
 }
