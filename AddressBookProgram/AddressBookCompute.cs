@@ -11,6 +11,7 @@ namespace AddressBookProgram
 
         private LinkedList<ContactDetails> contactList;
 
+        //creates the object linked list 
         public AddressBookCompute()
         {
             this.contactList = new LinkedList<ContactDetails>();
@@ -23,6 +24,7 @@ namespace AddressBookProgram
             this.contactList.AddLast(contactDetails);
         }
 
+        //calls the display method
         public void DisplayContact()
         {
             foreach (ContactDetails contact in this.contactList)
@@ -30,18 +32,8 @@ namespace AddressBookProgram
                 contact.Display();
             }
         }
-        public void EditContact(string name, long number)
-        {
-            //checks for every object whether the name is equal the given name
-            foreach (ContactDetails contact in this.contactList)
-            {
-                if (contact.firstName.Equals(name))
-                {
-                    //calls the setdetail method
-                    contact.SetDetail(number);
-                }
-            }
-        }
+
+
         //Delete the particular object
         public void DeleteContact(string name)
         {
@@ -51,6 +43,19 @@ namespace AddressBookProgram
                 {
                     this.contactList.Remove(contact);
                     break;
+                }
+            }
+        }
+
+        public void EditContact(string name, long number)
+        {
+            //checks for every object whether the name is equal the given name
+            foreach (ContactDetails contact in this.contactList)
+            {
+                if (contact.firstName.Equals(name))
+                {
+                    //calls the setdetail method
+                    contact.SetDetail(number);
                 }
             }
         }
