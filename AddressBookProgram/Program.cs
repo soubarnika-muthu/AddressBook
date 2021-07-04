@@ -6,7 +6,8 @@ namespace AddressBookProgram
     {
         /// <summary>
         /// Welcome to Address Book Management System
-        /// //UC1-C
+        /// UC1-Creation of new contact
+        //  UC2 Adding new contact
         /// </summary>
         /// <param name="args">The arguments.</param>
       
@@ -14,7 +15,7 @@ namespace AddressBookProgram
             {
                 Console.WriteLine("Welcome to Address book");
                 //calling operation management class that contains operation
-                OperationManagement.AddDetails();
+                OperationManagement.ReadInput();
                 Console.Read();
             }
         }
