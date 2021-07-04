@@ -30,6 +30,18 @@ namespace AddressBookProgram
                 contact.Display();
             }
         }
+        public void EditContact(string name, long number)
+        {
+            //checks for every object whether the name is equal the given name
+            foreach (ContactDetails contact in this.contactList)
+            {
+                if (contact.firstName.Equals(name))
+                {
+                    //calls the setdetail method
+                    contact.SetDetail(number);
+                }
+            }
+        }
 
     }
 }

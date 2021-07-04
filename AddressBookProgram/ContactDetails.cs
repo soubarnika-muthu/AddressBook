@@ -39,6 +39,10 @@ namespace AddressBookProgram
             Console.WriteLine("phone number:{0}", this.phoneNumber);
 
         }
+        public void SetDetail(long number)
+        {
+            this.phoneNumber = number;
+        }
 
     }
 }
