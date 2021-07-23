@@ -9,11 +9,15 @@ namespace AddressBookProgram
     class OperationManagement
     {
         Dictionary<string, AddressBookCompute> addressDictionary;
+        public Dictionary<string, List<ContactDetails>> stateDic;
+        public Dictionary<string, List<ContactDetails>> cityDic;
 
         //constructor that create the object for address book and store in dictionary
         public OperationManagement()
         {
             addressDictionary = new Dictionary<string, AddressBookCompute>();
+            stateDic = new Dictionary<string, List<ContactDetails>>();
+            cityDic = new Dictionary<string, List<ContactDetails>>();
         }
 
         //read input from user
@@ -37,6 +41,7 @@ namespace AddressBookProgram
                 Console.WriteLine("5.Delete the contact");
                 Console.WriteLine("6.Delete the address book");
                 Console.WriteLine("7.Display the person by city or state");
+                Console.WriteLine("8.Grouping the persons based on city or state");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -58,7 +63,7 @@ namespace AddressBookProgram
                         try
                         {
                             //calling the AddDetails method by passing the address of the Address book compute
-                            AddDetails(operation.BookName(addressDictionary));
+                            AddDetails(operation.BookName(addressDictionary), stateDic, cityDic);
                         }
                         catch (ArgumentNullException e)
                         {
@@ -123,8 +128,16 @@ namespace AddressBookProgram
                         addressDictionary.Remove(Name);
                         break;
                     case 7:
-                        AddressBookCompute.DisplayPerson(addressDictionary);
+                        AddressBookCompute.FindPerson(addressDictionary);
                         break;
+                    //case to group the persons in all address book based on state and city
+                    case 8:
+                        Console.WriteLine("Grouping based on city ");
+                        AddressBookCompute.PrintList(cityDic);
+                        Console.WriteLine("Grouping based on States ");
+                        AddressBookCompute.PrintList(stateDic);
+                        break;
+
                     case 0:
                         CONTINUE = false;
                         break;
@@ -135,32 +148,34 @@ namespace AddressBookProgram
             }
         }
 
-        //gets the user detail from the user by passing the address book object
-        public static void AddDetails(AddressBookCompute addressBookCompute)
+        //gets the user detail from the user by passing the address book object also state and city dicionary object to group based on dictionary value
+        public static void AddDetails(AddressBookCompute addressBookCompute, Dictionary<string, List<ContactDetails>> stateRecord, Dictionary<string, List<ContactDetails>> cityRecord)
         {
             try
             {
-                Console.WriteLine("Enter first Name");
-                string firstName = Console.ReadLine();
-                Console.WriteLine("Enter Last Name");
-                string lastName = Console.ReadLine();
-                Console.WriteLine("Enter Address");
-                string address = Console.ReadLine();
-                Console.WriteLine("Enter City");
-                string city = Console.ReadLine();
-                Console.WriteLine("Enter State");
-                string state = Console.ReadLine();
-                Console.WriteLine("Enter Zipcode");
-                long zipCode = Convert.ToInt64(Console.ReadLine());
-                Console.WriteLine("Enter Phone Number");
-                long phoneNumber = Convert.ToInt64(Console.ReadLine());
-                //passing the details to add contact detail method
-                addressBookCompute.AddContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber);
-            }
-            //catch the exception when the object is null like address book not available
-            catch (NullReferenceException aE)
-            {
-                Console.WriteLine("No Address book is available {0} ", aE.Message);
+                if (addressBookCompute == null)
+                {
+                    Console.WriteLine("Address book ot available");
+                }
+                else
+                {
+                    Console.WriteLine("Enter first Name");
+                    string firstName = Console.ReadLine();
+                    Console.WriteLine("Enter Last Name");
+                    string lastName = Console.ReadLine();
+                    Console.WriteLine("Enter Address");
+                    string address = Console.ReadLine();
+                    Console.WriteLine("Enter City");
+                    string city = Console.ReadLine();
+                    Console.WriteLine("Enter State");
+                    string state = Console.ReadLine();
+                    Console.WriteLine("Enter Zipcode");
+                    long zipCode = Convert.ToInt64(Console.ReadLine());
+                    Console.WriteLine("Enter Phone Number");
+                    long phoneNumber = Convert.ToInt64(Console.ReadLine());
+                    //passing the details to add contact detail method
+                    addressBookCompute.AddContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber, stateRecord, cityRecord);
+                }
             }
             //catches when the user input the invalid data
             catch (FormatException e)
