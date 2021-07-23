@@ -137,7 +137,10 @@ namespace AddressBookProgram
                         Console.WriteLine("Grouping based on States ");
                         AddressBookCompute.PrintList(stateDic);
                         break;
-
+                    case 9:
+                        AddressBookCompute.CountOfPersons(cityDic);
+                        AddressBookCompute.CountOfPersons(stateDic);
+                        break;
                     case 0:
                         CONTINUE = false;
                         break;

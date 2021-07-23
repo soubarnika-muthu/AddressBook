@@ -147,5 +147,12 @@ namespace AddressBookProgram
                 Console.WriteLine("===================================");
             }
         }
+        public static void CountOfPersons(Dictionary<string, List<ContactDetails>> Dic)
+        {
+            foreach (var l in Dic)
+            {
+                Console.WriteLine("Total number of person in {0} is: {1}", l.Key, l.Value.Count);
+            }
+        }
     }
 }
