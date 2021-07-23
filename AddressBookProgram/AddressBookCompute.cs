@@ -83,6 +83,31 @@ namespace AddressBookProgram
 
         }
 
+        public static void DisplayPerson(Dictionary<string, AddressBookCompute> addressDictionary)
+        {
+            List<ContactDetails> list = null;
+            //List<ContactDetails> stateList = new List<ContactDetails>();
+            string SCName;
+            Console.WriteLine("Enter City or State name:");
+            SCName = Console.ReadLine();
+            foreach (var l in addressDictionary)
+            {
+                AddressBookCompute address = l.Value;
+                list = address.contactList.FindAll(x => x.city.Equals(SCName) || x.state.Equals(SCName));
+                if (list.Count > 0)
+                {
+                    DisplayList(list);
+                }
+            }
+
+        }
+        public static void DisplayList(List<ContactDetails> l)
+        {
+            foreach (var data in l)
+            {
+                data.Display();
+            }
+        }
 
     }
 }

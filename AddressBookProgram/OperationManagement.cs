@@ -36,6 +36,7 @@ namespace AddressBookProgram
                 Console.WriteLine("4.Edit Details");
                 Console.WriteLine("5.Delete the contact");
                 Console.WriteLine("6.Delete the address book");
+                Console.WriteLine("7.Display the person by city or state");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -121,7 +122,9 @@ namespace AddressBookProgram
                         string Name = Console.ReadLine();
                         addressDictionary.Remove(Name);
                         break;
-
+                    case 7:
+                        AddressBookCompute.DisplayPerson(addressDictionary);
+                        break;
                     case 0:
                         CONTINUE = false;
                         break;
