@@ -12,6 +12,10 @@ namespace AddressBookProgram
         /// UC4-Deleting the particular contact detail
         /// UC5 -Add multiple person to address book one by one from user
         /// UC6- Adding Multiple Address Book
+        /// UC7-Ensure no duplicate enteries in address book
+        /// UC8-Search person by city or state
+        /// UC9-View person by city or state
+        /// UC10-Number of contact persons bycity or state
         /// </summary>
         /// <param name="args">The arguments.</param>
         static void Main(string[] args)
