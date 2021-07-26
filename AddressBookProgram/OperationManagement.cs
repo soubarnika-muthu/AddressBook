@@ -42,6 +42,8 @@ namespace AddressBookProgram
                 Console.WriteLine("6.Delete the address book");
                 Console.WriteLine("7.Display the person by city or state");
                 Console.WriteLine("8.Grouping the persons based on city or state");
+                Console.WriteLine("9.Total count of person in each city and state");
+                Console.WriteLine("10.Sort the address book by key");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -141,6 +143,15 @@ namespace AddressBookProgram
                         AddressBookCompute.CountOfPersons(cityDic);
                         AddressBookCompute.CountOfPersons(stateDic);
                         break;
+                    case 10:
+                        //displaying the sorted address book based on the key value ie.name of address book
+                        Console.WriteLine("AddressBook after sorting");
+                        foreach (var i in addressDictionary.OrderBy(x => x.Key))
+                        {
+                            Console.WriteLine("{0}", i.Key);
+                        }
+                        break;
+
                     case 0:
                         CONTINUE = false;
                         break;
