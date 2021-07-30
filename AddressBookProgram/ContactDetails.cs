@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 
 namespace AddressBookProgram
 {
-    class ContactDetails
+
+    /// <summary>
+    /// This class store the address details 
+    /// </summary>
+    public class ContactDetails
     {
-        public string firstName;
-        public string lastName;
-        public string address;
-        public string city;
-        public string state;
-        public long zipCode;
-        public long phoneNumber;
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string address { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public string zipCode { get; set; }
+        public string phoneNumber { get; set; }
 
         //constructor that gets user detail and store it in the current object
-        public ContactDetails(string firstName, string lastName, string address, string city, string state, long zipCode, long phoneNumber)
+        public ContactDetails(string firstName, string lastName, string address, string city, string state, string zipCode, string phoneNumber)
         {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -39,7 +43,9 @@ namespace AddressBookProgram
             Console.WriteLine("phone number:{0}", this.phoneNumber);
 
         }
-        public void SetDetail(long number)
+
+        //method sets the value 
+        public void SetDetail(string number)
         {
             this.phoneNumber = number;
         }

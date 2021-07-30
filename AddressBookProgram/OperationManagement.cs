@@ -8,14 +8,14 @@ namespace AddressBookProgram
 {
     class OperationManagement
     {
-        Dictionary<string, AddressBookCompute> addressDictionary;
+        Dictionary<string, List<ContactDetails>> addressDictionary;
         public Dictionary<string, List<ContactDetails>> stateDic;
         public Dictionary<string, List<ContactDetails>> cityDic;
-
+        public AddressBookCompute addressBook = new AddressBookCompute();
         //constructor that create the object for address book and store in dictionary
         public OperationManagement()
         {
-            addressDictionary = new Dictionary<string, AddressBookCompute>();
+            addressDictionary = new Dictionary<string, List<ContactDetails>>();
             stateDic = new Dictionary<string, List<ContactDetails>>();
             cityDic = new Dictionary<string, List<ContactDetails>>();
         }
@@ -24,16 +24,18 @@ namespace AddressBookProgram
         public void ReadInput()
         {
             OperationManagement operation = new OperationManagement();
+            FileOperation file = new FileOperation();
             //creating the object for the class address book 
             bool CONTINUE = true;
             string name;
-            AddressBookCompute book;
+            List<ContactDetails> contactList;
 
             //the loop continues until the user exit the site
             while (CONTINUE)
             {
                 //selecting the choice
                 Console.WriteLine("Enter your choice:");
+               
                 Console.WriteLine("1.Add new address book");
                 Console.WriteLine("2.Add contacts");
                 Console.WriteLine("3.Display");
@@ -45,20 +47,23 @@ namespace AddressBookProgram
                 Console.WriteLine("9.Total count of person in each city and state");
                 Console.WriteLine("10.Sort the address book by key");
                 Console.WriteLine("11.Sorting data based on City state or zipcode");
+                Console.WriteLine("12.REading and writing the data into the file");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 //select which method has to be invoked
                 switch (choice)
                 {
+                  
                     case 1:
                         //creating the dictionary
                         Console.WriteLine("Enter address book name:");
                         string addBookName = Console.ReadLine();
+                        List<ContactDetails> list = new List<ContactDetails>();
                         //create the object for the address book
-                        AddressBookCompute addressBook1 = new AddressBookCompute();
                         //pass address book object and name to the dictionary
-                        this.addressDictionary.Add(addBookName, addressBook1);
+                        addressDictionary.Add(addBookName, list);
+                        
                         break;
 
 
@@ -72,14 +77,15 @@ namespace AddressBookProgram
                         {
                             Console.WriteLine(e.Message);
                         }
+                      
                         break;
 
                     case 3:
                         //display the details in particular dictionary
-                        book = operation.BookName(addressDictionary);
-                        if (book != null)
+                        contactList = operation.BookName(addressDictionary);
+                        if (contactList != null)
                         {
-                            book.DisplayContact();
+                            AddressBookCompute.DisplayContact(contactList);
                         }
                         else
                         {
@@ -90,14 +96,14 @@ namespace AddressBookProgram
                     case 4:
                         try
                         {
-                            book = operation.BookName(addressDictionary);
+                            contactList = operation.BookName(addressDictionary);
                             //gets input from the user such as name and number that has to be changed
                             Console.WriteLine("Enter the first name of person to edit number:");
                             name = Console.ReadLine();
                             Console.Write("Enter the new number:");
-                            long number = Convert.ToInt64(Console.ReadLine());
+                            string number = Console.ReadLine();
                             //calling edit contact method
-                            book.EditContact(name, number);
+                            addressBook.EditContact(name, number, contactList);
                         }
                         catch (NullReferenceException e)
                         {
@@ -107,21 +113,23 @@ namespace AddressBookProgram
                         {
                             Console.WriteLine("Enter valid input");
                         }
+                        
                         break;
 
                     case 5:
                         try
                         {
-                            book = operation.BookName(addressDictionary);
+                            contactList = operation.BookName(addressDictionary);
                             //Deleting the user contact with first name
                             Console.WriteLine("Enter the name to delete contact:");
                             name = Console.ReadLine();
-                            book.DeleteContact(name);
+                            addressBook.DeleteContact(name, contactList);
                         }
                         catch (NullReferenceException)
                         {
                             Console.WriteLine("Address book is not available");
                         }
+                        
                         break;
 
                     case 6:
@@ -129,6 +137,7 @@ namespace AddressBookProgram
                         Console.WriteLine("Enter address book name to delete:");
                         string Name = Console.ReadLine();
                         addressDictionary.Remove(Name);
+                      
                         break;
                     case 7:
                         AddressBookCompute.FindPerson(addressDictionary);
@@ -136,14 +145,22 @@ namespace AddressBookProgram
                     //case to group the persons in all address book based on state and city
                     case 8:
                         Console.WriteLine("Grouping based on city ");
-                        AddressBookCompute.PrintList(cityDic);
+                        foreach (var l in cityDic.Values)
+                        {
+                            AddressBookCompute.DisplayContact(l);
+                        }
                         Console.WriteLine("Grouping based on States ");
-                        AddressBookCompute.PrintList(stateDic);
+                        foreach (var l in stateDic.Values)
+                        {
+                            AddressBookCompute.DisplayContact(l);
+                        }
                         break;
+                    //to find the count of the person in particular city or state
                     case 9:
                         AddressBookCompute.CountOfPersons(cityDic);
                         AddressBookCompute.CountOfPersons(stateDic);
                         break;
+
                     case 10:
                         //displaying the sorted address book based on the key value ie.name of address book
                         Console.WriteLine("AddressBook after sorting");
@@ -155,6 +172,11 @@ namespace AddressBookProgram
                     case 11:
                         //displaying the sorted records based on city,state,zipcode
                         AddressBookCompute.SortData(cityDic);
+                        break;
+                    case 12:
+                        //writing and reading  the data into the file
+
+                        file.WriteIntoFile(addressDictionary);
                         break;
 
                     case 0:
@@ -168,13 +190,13 @@ namespace AddressBookProgram
         }
 
         //gets the user detail from the user by passing the address book object also state and city dicionary object to group based on dictionary value
-        public static void AddDetails(AddressBookCompute addressBookCompute, Dictionary<string, List<ContactDetails>> stateRecord, Dictionary<string, List<ContactDetails>> cityRecord)
+        public void AddDetails(List<ContactDetails> list, Dictionary<string, List<ContactDetails>> stateRecord, Dictionary<string, List<ContactDetails>> cityRecord)
         {
             try
             {
-                if (addressBookCompute == null)
+                if (list == null)
                 {
-                    Console.WriteLine("Address book ot available");
+                    Console.WriteLine("Address book not available");
                 }
                 else
                 {
@@ -189,11 +211,11 @@ namespace AddressBookProgram
                     Console.WriteLine("Enter State");
                     string state = Console.ReadLine();
                     Console.WriteLine("Enter Zipcode");
-                    long zipCode = Convert.ToInt64(Console.ReadLine());
+                    string zipCode = Console.ReadLine();
                     Console.WriteLine("Enter Phone Number");
-                    long phoneNumber = Convert.ToInt64(Console.ReadLine());
+                    string phoneNumber = Console.ReadLine();
                     //passing the details to add contact detail method
-                    addressBookCompute.AddContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber, stateRecord, cityRecord);
+                    addressBook.AddContactDetails(firstName, lastName, address, city, state, zipCode, phoneNumber, stateRecord, cityRecord, list);
                 }
             }
             //catches when the user input the invalid data
@@ -204,11 +226,11 @@ namespace AddressBookProgram
         }
 
         //method to find the address of particular address book 
-        public AddressBookCompute BookName(Dictionary<string, AddressBookCompute> adBook)
+        public List<ContactDetails> BookName(Dictionary<string, List<ContactDetails>> adBook)
         {
             //enter the name of address ook
             Console.WriteLine("Enter address book name:");
-            AddressBookCompute address;
+            List<ContactDetails> address;
             string Name = Console.ReadLine();
             //checks whether the adress book contains the record
             try
