@@ -9,6 +9,7 @@ namespace AddressBookProgram
     class OperationManagement
     {
 
+        //Dictionary
         Dictionary<string, List<ContactDetails>> addressDictionary;
         public Dictionary<string, List<ContactDetails>> stateDic;
         public Dictionary<string, List<ContactDetails>> cityDic;
