@@ -8,6 +8,7 @@ namespace AddressBookProgram
 {
     class OperationManagement
     {
+
         Dictionary<string, List<ContactDetails>> addressDictionary;
         public Dictionary<string, List<ContactDetails>> stateDic;
         public Dictionary<string, List<ContactDetails>> cityDic;
@@ -48,13 +49,15 @@ namespace AddressBookProgram
                 Console.WriteLine("10.Sort the address book by key");
                 Console.WriteLine("11.Sorting data based on City state or zipcode");
                 Console.WriteLine("12.REading and writing the data into the file");
+                Console.WriteLine("13.Reading the data from JSON");
+                Console.WriteLine("14.Reading from CSV file");
                 Console.WriteLine("0.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 //select which method has to be invoked
                 switch (choice)
                 {
-                  
+                    
                     case 1:
                         //creating the dictionary
                         Console.WriteLine("Enter address book name:");
@@ -63,7 +66,7 @@ namespace AddressBookProgram
                         //create the object for the address book
                         //pass address book object and name to the dictionary
                         addressDictionary.Add(addBookName, list);
-                        
+                        file.WriteIntoJsonFile(addressDictionary);
                         break;
 
 
@@ -77,7 +80,7 @@ namespace AddressBookProgram
                         {
                             Console.WriteLine(e.Message);
                         }
-                      
+                        file.WriteIntoJsonFile(addressDictionary);
                         break;
 
                     case 3:
@@ -113,7 +116,7 @@ namespace AddressBookProgram
                         {
                             Console.WriteLine("Enter valid input");
                         }
-                        
+                        file.WriteIntoJsonFile(addressDictionary);
                         break;
 
                     case 5:
@@ -129,7 +132,7 @@ namespace AddressBookProgram
                         {
                             Console.WriteLine("Address book is not available");
                         }
-                        
+                        file.WriteIntoJsonFile(addressDictionary);
                         break;
 
                     case 6:
@@ -137,7 +140,7 @@ namespace AddressBookProgram
                         Console.WriteLine("Enter address book name to delete:");
                         string Name = Console.ReadLine();
                         addressDictionary.Remove(Name);
-                      
+                        file.WriteIntoJsonFile(addressDictionary);
                         break;
                     case 7:
                         AddressBookCompute.FindPerson(addressDictionary);
@@ -177,6 +180,12 @@ namespace AddressBookProgram
                         //writing and reading  the data into the file
 
                         file.WriteIntoFile(addressDictionary);
+                        break;
+                    case 13:
+                        addressDictionary = file.ReadFromJsonFile();
+                        break;
+                    case 14:
+                        addressDictionary = file.ReadFromCSVFile();
                         break;
 
                     case 0:
