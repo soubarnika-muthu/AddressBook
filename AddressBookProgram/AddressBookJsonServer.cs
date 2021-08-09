@@ -87,5 +87,13 @@ namespace AddressBookProgram
             return result;
         }
 
+        //delete the record from the server
+        public bool DeleteData(int id)
+        {
+            RestRequest request = new RestRequest("/Contacts/" + id, Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            return (response.IsSuccessful);
+        }
+
     }
 }
