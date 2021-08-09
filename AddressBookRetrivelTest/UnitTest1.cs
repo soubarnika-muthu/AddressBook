@@ -30,5 +30,14 @@ namespace AddressBookRetrivelTest
             int actual = operation.updateContact(2, "Shanthi", 9845625362);
             Assert.AreEqual(expected, actual);
         }
+
+        //UC19-Retrive the data based on city or state
+        [TestMethod]
+        public void StateCityRetrivalTest()
+        {
+            int expected = 4;
+            List<ContactDetails> actual = operation.RetrivingDataBasedOnStateCity("Tamil Nadu", "chennai");
+            Assert.AreEqual(expected, actual.Count);
+        }
     }
 }
