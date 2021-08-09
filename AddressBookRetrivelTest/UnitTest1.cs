@@ -71,5 +71,13 @@ namespace AddressBookRetrivelTest
             contactList = operation.AddMultiplecontactToDataBase(contactList);
             Assert.AreEqual(expected, contactList);
         }
+
+        //UC22-retriving data from json server
+        [TestMethod]
+        public void OnCallingGetAPI_ReturnsContacts()
+        {
+            List<ContactDetails> actual = new AddressBookJsonServer().ReadFromServer();
+            Assert.AreEqual(1, actual.Count);
+        }
     }
 }
