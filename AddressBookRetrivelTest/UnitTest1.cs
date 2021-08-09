@@ -55,10 +55,21 @@ namespace AddressBookRetrivelTest
         [TestMethod]
         public void InsertIntoAddressBookTest()
         {
-            int expected = 2;
+            int expected = 0;
             ContactDetails contactDetails = new ContactDetails { personId = 10, firstName = "marcus", lastName = "josh", address = "mgm road", city = "madurai", state = "Tamil Nadu", zipCode = "856423", phoneNumber = "9856234561", emailAddress = "marcys@gmail.com", typeId = 2, addressBookId = 1, addedDate = "2020-06-30" };
             int actual = operation.AddDetailsToAddressBook(contactDetails);
             Assert.AreEqual(expected, actual);
+        }
+        //UC21-ADDing multiple records
+        [TestMethod]
+        public void AddingMultipleDataToAddressBook()
+        {
+            int expected = 0;
+            List<ContactDetails> contactList = new List<ContactDetails> { new ContactDetails { personId = 14, firstName = "marcus1", lastName = "josh", address = "mgm road", city = "madurai", state = "Tamil Nadu", zipCode = "856423", phoneNumber = "9856234561", emailAddress = "marcys@gmail.com", typeId = 2, addressBookId = 1, addedDate = "2020-06-30" } ,
+                                                                         new ContactDetails { personId =12, firstName = "marcus2", lastName = "josh", address = "mgm road", city = "madurai", state = "Tamil Nadu", zipCode = "856423", phoneNumber = "9856234561", emailAddress = "marcys@gmail.com", typeId = 2, addressBookId = 1, addedDate = "2020-06-30" },
+                                                                         new ContactDetails { personId =13, firstName = "marcus3", lastName = "josh", address = "mgm road", city = "madurai", state = "Tamil Nadu", zipCode = "856423", phoneNumber = "9856234561", emailAddress = "marcys@gmail.com", typeId = 2, addressBookId = 1, addedDate = "2020-06-30" }};
+            contactList = operation.AddMultiplecontactToDataBase(contactList);
+            Assert.AreEqual(expected, contactList);
         }
     }
 }

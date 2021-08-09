@@ -287,5 +287,13 @@ namespace AddressBookProgram
             int res = new DataBaseOperation().WriteIntoDataBase(details);
             return res;
         }
+
+        public List<ContactDetails> AddMultiplecontactToDataBase(List<ContactDetails> list)
+        {
+            list = new DataBaseOperation().AddingMultipleData(list);
+            return list;
+        }
+
+
     }
 }
