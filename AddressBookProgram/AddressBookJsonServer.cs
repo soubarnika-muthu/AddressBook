@@ -59,5 +59,33 @@ namespace AddressBookProgram
                 new DataBaseOperation().WriteIntoDataBase(contact);
             }
         }
+
+        public int UpdateValueInJsonServer(ContactDetails contact)
+        {
+            int result = 0;
+            RestRequest request = new RestRequest("/Contacts/" + contact.personId, Method.PUT);
+            JsonObject json = new JsonObject();
+            json.Add("id", contact.personId);
+            json.Add("firstName", contact.firstName);
+            json.Add("lastName", contact.lastName);
+            json.Add("address", contact.address);
+            json.Add("city", contact.city);
+            json.Add("state", contact.state);
+            json.Add("zipCode", contact.zipCode);
+            json.Add("phoneNumber", contact.phoneNumber);
+            json.Add("emailAddress", contact.emailAddress);
+            json.Add("addedDate", contact.addedDate);
+            json.Add("typeId", contact.typeId);
+            json.Add("addressBookId", contact.addressBookId);
+            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var res = JsonConvert.DeserializeObject<ContactDetails>(response.Content);
+            if (response.IsSuccessful)
+            {
+                result = new DataBaseOperation().EditContactDetail(contact.personId, contact.firstName, Convert.ToInt64(contact.phoneNumber));
+            }
+            return result;
+        }
+
     }
 }
