@@ -79,5 +79,14 @@ namespace AddressBookRetrivelTest
             List<ContactDetails> actual = new AddressBookJsonServer().ReadFromServer();
             Assert.AreEqual(1, actual.Count);
         }
+
+        //Adding data to json server
+        [TestMethod]
+        public void OnCallingPOSTAPI_AddMethodToServer()
+        {
+            List<ContactDetails> contactDetails = new List<ContactDetails> { new ContactDetails { personId = 12, firstName = "marcus", lastName = "josh", address = "mgm road", city = "madurai", state = "Tamil Nadu", zipCode = "856423", phoneNumber = "9856234561", emailAddress = "marcys@gmail.com", typeId = 2, addressBookId = 1, addedDate = "2020-06-30" } };
+            new AddressBookJsonServer().AddingMultipleContactToServer(contactDetails);
+
+        }
     }
 }

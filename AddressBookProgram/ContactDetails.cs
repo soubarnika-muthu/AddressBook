@@ -24,7 +24,8 @@ namespace AddressBookProgram
         public string addedDate { get; set; }
         public int typeId { get; set; }
         public int addressBookId { get; set; }
-       
+        //for json server
+        public int id { get; set; }
 
         //it displays the details of the address book
         public void Display()
