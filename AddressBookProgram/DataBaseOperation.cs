@@ -9,7 +9,7 @@ namespace AddressBookProgram
 {
     class DataBaseOperation
     {
-        public static string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=AddressBookService";
+        public static string connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Address_Book_Service";
         SqlConnection sqlConnection = new SqlConnection(connectionString);
         public List<ContactDetails> ReadFromDataBase()
         {
@@ -19,7 +19,7 @@ namespace AddressBookProgram
             try
             {
                 sqlConnection.Open();
-                SqlCommand sqlCommand = new SqlCommand("dbo.RetriveAllDetails", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("RetriveAllDetail", sqlConnection);
                 //passing command type as stored procedure
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader reader = sqlCommand.ExecuteReader();
@@ -54,7 +54,36 @@ namespace AddressBookProgram
             }
 
         }
-
+        public int EditContactDetail(int id, string firstName, long phoneNumber)
+        {
+            using (sqlConnection)
+                try
+                {
+                    //passing query in terms of stored procedure
+                    SqlCommand sqlCommand = new SqlCommand("EditPhoneNumber", sqlConnection);
+                    //passing command type as stored procedure
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlConnection.Open();
+                    //adding the values to the stored procedure
+                    sqlCommand.Parameters.AddWithValue("@firstName", firstName);
+                    sqlCommand.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@id", id);
+                    int result = sqlCommand.ExecuteNonQuery();
+                    //if result is greater than 0 then record is inserted
+                    if (result > 0)
+                        return 1;
+                    else
+                        return 0;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+        }
         public void WriteIntoDataBase(ContactDetails details)
         {
             throw new NotImplementedException();

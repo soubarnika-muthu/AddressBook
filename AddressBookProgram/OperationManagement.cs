@@ -26,7 +26,7 @@ namespace AddressBookProgram
         {
             OperationManagement operation = new OperationManagement();
             JSONFileOperation jSONFile = new JSONFileOperation();
-            string jsonFile = @"C:\Users\HP1\source\repos\AddressBook\AddressBook\ContactDetails.json";
+            string jsonFile = @"C:\Users\hp\source\repos\AddressBookProgram\AddressBookProgram\addressbook.json";
             //creating the object for the class address book 
             bool CONTINUE = true;
             string name;
@@ -61,7 +61,7 @@ namespace AddressBookProgram
                         addressDictionary = jSONFile.ReadData(jsonFile);
                         break;
                     case 2:
-                        string csvFile = @"C:\Users\HP1\source\repos\AddressBook\AddressBook\ContactDetai.csv";
+                        string csvFile = @"C:\Users\hp\source\repos\AddressBookProgram\AddressBookProgram\ContactDetails.csv";
                         addressDictionary = new CSVFileOperation().ReadData(csvFile);
                         break;
                     case 3:
@@ -184,7 +184,7 @@ namespace AddressBookProgram
                         break;
                     case 14:
                         //writing and reading  the data into the file
-                        string filepath = @"C:\Users\HP1\source\repos\AddressBook\AddressBook\AddressBook.txt";
+                        string filepath = @"C:\Users\hp\source\repos\AddressBookProgram\AddressBookProgram\AddressBook.txt";
                         new TextFileOperation().WriteData(addressDictionary, filepath);
                         break;
                     case 0:
@@ -261,6 +261,12 @@ namespace AddressBookProgram
             DataBaseOperation operation = new DataBaseOperation();
             List<ContactDetails> detail = operation.ReadFromDataBase();
             return detail;
+        }
+
+        public int updateContact(int id, string firstName, long phoneNumber)
+        {
+            int res = new DataBaseOperation().EditContactDetail(id, firstName, phoneNumber);
+            return res;
         }
     }
 }

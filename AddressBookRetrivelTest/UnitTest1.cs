@@ -17,9 +17,18 @@ namespace AddressBookRetrivelTest
         [TestMethod]
         public void RetrivingtheDataFromDataBaseTest()
         {
-            int expected = 3;
+            int expected = 4;
             List<ContactDetails> list = operation.RetrivingDataFromDataBase();
             Assert.AreEqual(expected, list.Count);
+        }
+
+        //UC17-Update contact data from database
+        [TestMethod]
+        public void UpdateDataTest()
+        {
+            int expected = 1;
+            int actual = operation.updateContact(2, "Shanthi", 9845625362);
+            Assert.AreEqual(expected, actual);
         }
     }
 }
