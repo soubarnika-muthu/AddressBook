@@ -1,1 +1,34 @@
-{"vcet":[{"firstName":"sou","lastName":"muthu","address":"melamadai","city":"madurai","state":"tamilnadu","zipCode":"20","phoneNumber":"9629459258"}],"vec":[{"firstName":"shanthi","lastName":"venkat","address":"anna nagar","city":"madurai","state":"tamilnadu","zipCode":"34","phoneNumber":"9629459258"}]}
+{
+
+  "CTS": [
+    {
+      "firstName": "abc",
+      "lastName": "xyz",
+      "address": "aaaa",
+      "city": "chennai",
+      "state": "tamil nadu",
+      "zipCode": "6000024",
+      "phoneNumber": "9876787645"
+    },
+    {
+      "firstName": "shanthi",
+      "lastName": "venkat",
+      "address": "kknagar",
+      "city": "chennai",
+      "state": "tamilnadu",
+      "zipCode": "600032",
+      "phoneNumber": "9867893766"
+    }
+  ],
+  "TVS": [
+    {
+      "firstName": "sou",
+      "lastName": "muthu",
+      "address": "bommi nagar",
+      "city": "madurai",
+      "state": "tami nadu",
+      "zipCode": "625107",
+      "phoneNumber": "829238723"
+    }
+  ]
+}
