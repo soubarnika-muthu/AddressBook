@@ -26,7 +26,7 @@ namespace AddressBookProgram
     }
     interface DatabaseReadWrite
     {
-        void WriteIntoDataBase(ContactDetails details);
+        int WriteIntoDataBase(ContactDetails details);
         List<ContactDetails> ReadFromDataBase();
     }
 

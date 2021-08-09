@@ -21,6 +21,10 @@ namespace AddressBookProgram
         public string zipCode { get; set; }
         public string phoneNumber { get; set; }
         public string emailAddress { get; set; }
+        public string addedDate { get; set; }
+        public int typeId { get; set; }
+        public int addressBookId { get; set; }
+       
 
         //it displays the details of the address book
         public void Display()

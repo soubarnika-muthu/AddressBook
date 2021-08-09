@@ -175,11 +175,44 @@ namespace AddressBookProgram
 
 
         }
-        public void WriteIntoDataBase(ContactDetails details)
+        public int WriteIntoDataBase(ContactDetails details)
         {
-            throw new NotImplementedException();
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using (sqlConnection)
+            {
+                sqlConnection.Open();
+                //creating object for transaction class and begin transaction
+                SqlTransaction transaction = sqlConnection.BeginTransaction();
+                try
+                {
+                    //executing the query
+                    string AddressInsertion = "insert into AddressBook(firstName,lastName,phoneNumber,address,city,state,email,zipCode,date_added) values ('" + details.firstName + "','" + details.lastName + "'," + Convert.ToDouble(details.phoneNumber) + ",'" + details.address + "','" + details.city + "','" + details.state + "','" + details.emailAddress + "'," + Convert.ToDouble(details.zipCode) + ",'" + details.addedDate + "')";
+                    string TypeInsertion = "insert into ContactAddress(personId,typeId) values(" + details.personId + "," + details.typeId + ")";
+                    string addressBookNameInsertion = "insert into AddressBookContact(personId,addressBookId) values (" + details.personId + "," + details.addressBookId + ")";
+                    new SqlCommand(AddressInsertion, sqlConnection, transaction).ExecuteNonQuery();
+                    new SqlCommand(TypeInsertion, sqlConnection, transaction).ExecuteNonQuery();
+                    new SqlCommand(addressBookNameInsertion, sqlConnection, transaction).ExecuteNonQuery();
+                    //if all query is successfull commit
+                    transaction.Commit();
+
+                    return 1;
+                }
+                catch (Exception e)
+                {
+                    //else roll back
+                    transaction.Rollback();
+                    return 0;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
+            }
         }
 
-       
     }
+
+
+
 }
+

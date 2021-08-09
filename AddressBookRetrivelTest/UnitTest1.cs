@@ -50,5 +50,15 @@ namespace AddressBookRetrivelTest
             List<ContactDetails> actual = operation.RetrivingDataBasedOnStateCity("Tamil Nadu", "chennai");
             Assert.AreEqual(expected, actual.Count);
         }
+
+        //UC20-Adding data to the address book
+        [TestMethod]
+        public void InsertIntoAddressBookTest()
+        {
+            int expected = 2;
+            ContactDetails contactDetails = new ContactDetails { personId = 10, firstName = "marcus", lastName = "josh", address = "mgm road", city = "madurai", state = "Tamil Nadu", zipCode = "856423", phoneNumber = "9856234561", emailAddress = "marcys@gmail.com", typeId = 2, addressBookId = 1, addedDate = "2020-06-30" };
+            int actual = operation.AddDetailsToAddressBook(contactDetails);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
